@@ -6,8 +6,8 @@
 (def re #"(.*) = \((.*), (.*)\)")
 
 (defn parse-nodes [input]
-  (let [[_ a l r] (re-matches re input)]
-    [a [l r]]))
+  (let [[_ node left right] (re-matches re input)]
+    [node [left right]]))
 
 (defn parse-input [input]
   (let [[turns nodes-string] (s/split input #"\n\n")
@@ -27,30 +27,29 @@
 (defn solve [{turns :turns nodes :nodes}]
   (loop [ts (cycle turns)
          position "AAA"
-         moves 0]
+         move-count 0]
     (if (= position "ZZZ")
-      moves
+      move-count
       (recur (next ts)
              (turn (first ts) position nodes)
-             (inc moves)))))
+             (inc move-count)))))
 
 (solve parsed-input)
 
 ;; Part 2
 
 (defn ends-with-z? [nodes]
-  (every? #(= \Z (nth % 2)) nodes))
+  (= \Z (nth nodes 2)))
 
 (defn find-z [{turns :turns nodes :nodes} start]
-  (let [starting-nodes (filter #(= \A (nth % 2)) (keys nodes))]
-    (loop [ts (cycle turns)
-           positions [start]
-           moves 0]
-      (if (ends-with-z? positions)
-        moves
-        (recur (rest ts)
-               (mapv (fn [x] (turn (first ts) x nodes)) positions)
-               (inc moves))))))
+  (loop [ts (cycle turns)
+         position start
+         move-count 0]
+    (if (ends-with-z? position)
+      move-count
+      (recur (rest ts)
+             (turn (first ts) position nodes)
+             (inc move-count)))))
 
 (defn gcd [a b]
   (if (not= b 0)
