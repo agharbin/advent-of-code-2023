@@ -37,7 +37,7 @@
       [(dec grid-rows) rock-col])))
 
 (defn seek-east [grid [rock-row rock-col]]
-  "Find resting position of rock rolling east (negative column direction)"
+  "Find resting position of rock rolling east (positive column direction)"
   (let [obstacles (for [c (range (inc rock-col) grid-cols)
                        :when (#{\O \#} (get-in grid [rock-row c]))]
                     [rock-row c])
@@ -47,7 +47,7 @@
       [rock-row (dec grid-cols)])))
 
 (defn seek-west [grid [rock-row rock-col]]
-  "Find resting position of rock rolling west (positive column direction)"
+  "Find resting position of rock rolling west (negative column direction)"
   (let [obstacles (for [c (range 0 rock-col)
                        :when (#{\O \#} (get-in grid [rock-row c]))]
                     [rock-row c])
