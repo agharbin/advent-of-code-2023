@@ -57,7 +57,7 @@
         (assoc boxes box-num (conj box [k v]))))))
 
 (defn remove-box [boxes k]
-  "Returns a box with the key-value pair matching key `k` removed."
+  "Returns the box dictionary with the key-value pair matching key `k` removed from the appropriate box."
   (let [box-num (compute-hash k)
         box (get boxes box-num)]
     (if (nil? box)
