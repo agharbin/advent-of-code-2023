@@ -69,13 +69,13 @@
   (* (- x2 x1) (- m2 m1) (- a2 a1) (- s2 s1)))
 
 (defn split-upper [interval feature value]
-  "Splits an interval on the given dimention (feature) at value and takes the upper part."
+  "Splits an interval on the given dimension (feature) at value and takes the upper part."
   (let [idx ({:x 0 :m 1 :a 2 :s 3} feature)
         [_ e] (interval idx)]
     (assoc interval idx [value e])))
 
 (defn split-lower [interval feature value]
-  "Splits an interval on the given dimention (feature) at value and takes the lower part."
+  "Splits an interval on the given dimension (feature) at value and takes the lower part."
   (let [idx ({:x 0 :m 1 :a 2 :s 3} feature)
         [s _] (interval idx)]
     (assoc interval idx [s value])))
