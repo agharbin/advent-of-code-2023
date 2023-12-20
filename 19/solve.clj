@@ -65,7 +65,7 @@
 ;; Part 2
 
 (defn score-interval [[[x1 x2] [m1 m2] [a1 a2] [s1 s2]]]
-  "Compute the score of a range of parts, given and [start, end) pairs for each x,m,a and s"
+  "Compute the score of a range of parts, given as [start, end) pairs for each x,m,a and s"
   (* (- x2 x1) (- m2 m1) (- a2 a1) (- s2 s1)))
 
 (defn split-upper [interval feature value]
