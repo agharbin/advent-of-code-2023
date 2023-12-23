@@ -29,11 +29,11 @@
 (defn incoming-nodes [label]
   "Find and return all nodes that feed into the given node."
   (->> (for [node parsed-input connection (node-connections node)] [(node-label node) connection])
-       (filter #(= label (node-label %)))
+       (filter #(= label (second %)))
        (map first)))
 
 (defn find-initial-state []
-  "Calculates the initial values of all stateful nodes (& and %). We represet the state
+  "Calculates the initial values of all stateful nodes (& and %). We represent the state
    as a pair of dictionaries mapping the node label to the current state."
   (let [flip-flops (filter #(= :flip (node-type %)) parsed-input)
         flip-flop-labels (map node-label flip-flops)
@@ -45,11 +45,11 @@
 
 (def initial-state (find-initial-state))
 
-(defn find-neighbors []
+(defn build-neighbors-map []
   "Build a dictionary of node labels to downtream neighbors."
   (into {} (for [node parsed-input] [(node-label node) (node-connections node)])))
 
-(def neighbors (find-neighbors))
+(def neighbors (build-neighbors-map))
 
 (defn process-signal [[flip-s conj-s :as state] [source strength target :as signal]]
   "Given a current state and new signal, compute the next state and any newly generated signals.
