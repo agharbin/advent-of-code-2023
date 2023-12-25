@@ -1,4 +1,4 @@
-(ns adamharbin.advent.2023.24.1
+(ns adamharbin.advent.2023.24
   (:require [clojure.string :as s]
             [adamharbin.advent.common :refer [vector-]]))
 
