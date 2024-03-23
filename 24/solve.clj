@@ -56,7 +56,7 @@
       (neg? (second v)))))
   
 (defn solve [input]
-  "Computes the number of lines that intersect, ignoring the z dimention."
+  "Computes the number of lines that intersect, ignoring the z dimension."
   (->>
     (for [line1 input line2 input :when (not= line1 line2)]
       (let [intersection (compute-intersection line1 line2)]
